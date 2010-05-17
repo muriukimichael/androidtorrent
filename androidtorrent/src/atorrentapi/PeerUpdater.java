@@ -336,7 +336,24 @@ public class PeerUpdater extends Thread {
         	
         	//get announce url from announceURLs
         	int thisint = torrent.currenturlid;
+        	//Log.v("AndroidTorrent","contacting tracker for "+thisint);
+        	
+        	int size=torrent.announceURLS.size();
+        	//Log.v("AndroidTorrent","size for the urls vector is  "+size);
+        	
+        	if(size == 0){
+        		//bad things.. we need tracker urls here
+        		
+        		
+        	}
+        	
+        	
+        	
+        	
         	Object currentURL = torrent.announceURLS.get(thisint);
+        	
+        	//Log.v("AndroidTorrent","currenturl is "+currentURL);
+        	
         	
         	//need a check here to make it roll back to 0 once its at the end
         	if(torrent.currenturlid > torrent.totalurlid){

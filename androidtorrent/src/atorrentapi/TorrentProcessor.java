@@ -45,6 +45,8 @@ import java.net.URL;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
 
+import android.util.Log;
+
 /**
  * 
  * Class enabling to process a torrent file
@@ -125,7 +127,7 @@ public class TorrentProcessor {
 	 */
 	@SuppressWarnings("unchecked")
 	public TorrentFile getTorrentFile(Map m) {
-
+		Vector<URL> urls = new Vector<URL>();
 		String TK_ANNOUNCE = "announce";
 		String TK_ANNOUNCE_LIST = "announce-list";
 
@@ -139,16 +141,34 @@ public class TorrentProcessor {
 		List announce_list = null;
 		String announce_url = null;
 
-		/*
+		
+		
+		//they may only have one tracker
 		if (m.containsKey(TK_ANNOUNCE)) // mandatory key
 		{
 			announce_url = new String((byte[]) m.get(TK_ANNOUNCE));
 			if (announce_url != null) {
 				announce_url = announce_url.replaceAll(" ", "");
 				this.torrent.announceURL = announce_url;
+				
+			
+				//Log.v("AndroidTorrent","adding url " +announce_url);
+				
+				
+				try {
+					urls.add(new URL(announce_url));
+					this.torrent.announceURLS = (Vector<URL>) urls.clone();
+					
+					int urlssize=this.torrent.announceURLS.size();
+					//Log.v("androidtorrent","we have "+urlssize+" trackers");
+					
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
-*/
+
 		
 		
 		if (m.containsKey(TK_ANNOUNCE_LIST) || m.containsKey(TK_ANNOUNCE) ) {
@@ -169,7 +189,7 @@ public class TorrentProcessor {
 
 					List set = (List) announce_list.get(i);
 
-					Vector<URL> urls = new Vector<URL>();
+					
 
 					for (int j = 0; j < set.size(); j++) {
 
@@ -220,13 +240,19 @@ public class TorrentProcessor {
 					// missing
 					if (!announce_url_found && announce_url != null && announce_url.length() > 0) {
 						try {
-
+							//Log.v("AndroidTorrent","adding to urls " +announce_url);
 							urls.add(new URL(announce_url));
 							URL[] url_array = new URL[urls.size()];
 							urls.copyInto(url_array);
 							//addTorrentAnnounceURLSet(url_array);
 							this.torrent.announceURLS = (Vector<URL>) urls.clone();
-					 		this.torrent.totalurlid++;
+					  		this.torrent.totalurlid++;
+					  		
+					  		int urlssize=this.torrent.announceURLS.size();
+							//Log.v("androidtorrent","we have "+urlssize+" trackers");
+					  		
+					  		
+					  		
 						} catch (Exception e) {
 							System.err
 									.println("exception na leitura do .torrent");
@@ -237,7 +263,15 @@ public class TorrentProcessor {
 
 					   // URL[] url_array = new URL[urls.size()];
 						this.torrent.announceURLS = (Vector<URL>) urls.clone();
-						this.torrent.totalurlid++;
+						
+						int urlssize=this.torrent.announceURLS.size();
+						
+						//Log.v("androidtorrent","we have "+urlssize+" trackers");
+						
+						//if the size is greater than 1 and totalurlid is less than urlssize
+						if(urlssize>1 && this.torrent.totalurlid <= urlssize){
+							this.torrent.totalurlid++;
+						}
 
 						 //urls.copyInto( url_array );
 
