@@ -331,11 +331,23 @@ public class PeerUpdater extends Thread {
      * @param event String
      * @return A Map containing the decoded tracker response
      */
-    public synchronized Map contactTracker(byte[] id,
-                                           TorrentFile t, long dl, long ul,
-                                           long left, String event) {
+    public synchronized Map contactTracker(byte[] id, TorrentFile t, long dl, long ul, long left, String event) {
         try {
-            URL source = new URL(t.announceURL + "?info_hash=" +
+        	
+        	//get announce url from announceURLs
+        	int thisint = torrent.currenturlid;
+        	Object currentURL = torrent.announceURLS.get(thisint);
+        	
+        	//need a check here to make it roll back to 0 once its at the end
+        	if(torrent.currenturlid > torrent.totalurlid){
+        		torrent.currenturlid++;
+        	}else{
+        		torrent.currenturlid=0;
+        	}
+        	
+        	
+        	
+            URL source = new URL(currentURL + "?info_hash=" +
                                  t.info_hash_as_url + "&peer_id=" +
                                  Utils.byteArrayToURLString(id) + "&port="+
                                 this.listeningPort +
@@ -361,9 +373,15 @@ public class PeerUpdater extends Thread {
         } catch (UnknownHostException uhe) {
             this.fireUpdateFailed(3, "Tracker not available... Retrying...");
         } catch (IOException ioe) {
+        	//Log.v("AndroidTorrent ",t.announceURL + "?info_hash=" + t.info_hash_as_url + "&peer_id=" +  Utils.byteArrayToURLString(id) + "&port="+ this.listeningPort + "&downloaded=" + dl + "&uploaded=" + ul + "&left=" + left + "&numwant=100&compact=1" + event);
+        	
             this.fireUpdateFailed(4, "Tracker unreachable... Retrying");
+            //remove host from tracker urls?
+            
+            
+            
         } catch (Exception e) {
-            this.fireUpdateFailed(5, "Internal error");
+            this.fireUpdateFailed(5, "Internal error" +e);
         }
         return null;
     }

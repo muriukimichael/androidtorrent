@@ -39,6 +39,7 @@ package atorrentapi;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * Representation of a torrent file
@@ -49,13 +50,17 @@ import java.util.Date;
 public class TorrentFile {
 
     public String announceURL;
+    public Vector  announceURLS = new Vector();
+ 
+    
     public String comment;
     public String createdBy;
     public long creationDate;
     public String encoding;
     public String saveAs;
     public int pieceLength;
-
+    public int currenturlid=0;
+    public int totalurlid=0;
     /* In case of multiple files torrent, saveAs is the name of a directory
      * and name contains the path of the file to be saved in this directory
      */
@@ -63,8 +68,8 @@ public class TorrentFile {
     public ArrayList length;
 
     public byte[] info_hash_as_binary;
-    public String info_hash_as_hex;
-    public String info_hash_as_url;
+    public String info_hash_as_hex ="";
+    public String info_hash_as_url ="";
     public long total_length;
 
     public ArrayList piece_hash_values_as_binary;
@@ -77,6 +82,7 @@ public class TorrentFile {
     public TorrentFile() {
         super();
         announceURL = new String();
+        announceURLS = new Vector();
         comment = new String();
         createdBy = new String();
         encoding = new String();
@@ -92,8 +98,8 @@ public class TorrentFile {
         piece_hash_values_as_url = new ArrayList();
         piece_hash_values_as_hex = new ArrayList();
         info_hash_as_binary = new byte[20];
-        info_hash_as_url = new String();
-        info_hash_as_hex = new String();
+        info_hash_as_url = "";
+        info_hash_as_hex = "";
     }
 
     /**

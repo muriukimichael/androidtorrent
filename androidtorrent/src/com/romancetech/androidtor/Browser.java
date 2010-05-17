@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
@@ -52,10 +53,10 @@ public class Browser extends ListActivity {
 
 
        	//get file browser
-    	setContentView(R.layout.directory_list);
+    	//setContentView(R.layout.directory_list);
     	
     	
-    	generateScreen(2);
+    	//generateScreen(2);
 
     	    
 	        
@@ -75,13 +76,16 @@ public class Browser extends ListActivity {
 	                return myreturn;
 	            } 
 	        }; 
-	        File test=new File("/sdcard");
+	        //File test=new File("/sdcard");
+	        File test=Environment.getExternalStorageDirectory();
+	      
+	        
 	        if(test.canWrite()){
-	        	fill(new File("/sdcard").listFiles(filter));
+	        	fill(test.listFiles(filter));
 	        }else{
 	        	Message acceptMsg = Message.obtain();
 	        	new AlertDialog.Builder(this)
-	            .setMessage("Cannot read your SD Card.Unmoun/Re-insert your card and try again")
+	            .setMessage("Cannot read your SD Card.Unmount/Re-insert your card and try again")
 	            .setNeutralButton("OK", null)
 	            .show();
 	        }
@@ -156,8 +160,11 @@ public class Browser extends ListActivity {
     	                              //Put your code in here for a positive response
     	                        	  Intent i = new Intent();
     	         	             	  i.putExtra("torrent", thefile);
-    	         	             	i.setClassName("com.romancetech.androidtor", "com.romancetech.androidtor.GetDownload");
+    	         	             	  i.setClassName("com.romancetech.androidtor", "com.romancetech.androidtor.GetDownload");
     	         	             	  startActivity(i);
+    	         	             	  
+    	         	             	  
+    	         	             	  
     	                           }
     	                   })
     	                   .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -186,7 +193,8 @@ public class Browser extends ListActivity {
     
    
    private void fillWithRoot() {
-       fill(new File("/sdcard").listFiles());
+	   File file = Environment.getExternalStorageDirectory();
+       fill(file.listFiles());
    }
     
    
@@ -209,75 +217,7 @@ public class Browser extends ListActivity {
    
    
    
-   private void generateScreen(int tabNum) {
-   	LinearLayout ll = (LinearLayout) findViewById(R.id.content);
-   	if (tabNum == 1) {
-   		Intent i = new Intent();
-		i.setClassName("com.romancetech.androidtor", "com.romancetech.androidtor.Search");
-        startActivity(i);
-   		
-   		
-   	} else if (tabNum == 2) {
-   		
-   		//View vv = View.inflate(Browser.this, R.layout.tabs, null);
-   		//ll.addView(vv, new LinearLayout.LayoutParams(ll.getLayoutParams().width, ll.getLayoutParams().height));
-   		
-   		
-   	} else if (tabNum==3) {
-   		//clear the list
-   		Intent i = new Intent();
-		i.setClassName("com.romancetech.androidtor", "com.romancetech.androidtor.GetDownload");
-        startActivity(i);
-       }
-   	setListeners();
-   }
-
-
-   private void setListeners() {
-	    TextView tab1 = (TextView) findViewById(R.id.tab1);
-	    tab1.setOnClickListener(onClickListener);
-	    TextView tab2 = (TextView) findViewById(R.id.tab2);
-	    tab2.setOnClickListener(onClickListener);
-	    TextView tab3 = (TextView) findViewById(R.id.tab3);
-	    tab3.setOnClickListener(onClickListener);
-   }
-
-
-   private OnClickListener onClickListener = new OnClickListener() {
-   	public void onClick(final View v) {
-   		LinearLayout ll = (LinearLayout) findViewById(R.id.content);
-   		switch (v.getId()) {
-   			case R.id.tab1:
-   				//switch intent?
-   				//System.out.println("tab1 - browser");
-   				//ll.removeAllViews();
-   				generateScreen(1);
-   				break;
-
-
-   			case R.id.tab2:
-   				//System.out.println("tab2 - browser");
-   				//ll.removeAllViews();
-   				//generateScreen(2);
-   				break;
-
-
-   			case R.id.tab3:
-   				//System.out.println("tab3 - browser");
-   				generateScreen(3);
-   				break;
-   		    }
-   	}
-
-
-   };
-
-
-
-
-
-   
-   
+      
    
    
    

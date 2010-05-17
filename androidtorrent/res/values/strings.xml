@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, andtor!</string>
-    <string name="app_name">AndroidTorrent</string>
+    <string name="app_name">AndTor</string>
 <string name="no_files">Empty</string>
 <string name="to_top">&lt;select a torrent to download&gt; [Up a level]</string>
 </resources>

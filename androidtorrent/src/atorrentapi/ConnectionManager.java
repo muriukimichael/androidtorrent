@@ -71,7 +71,8 @@ public class ConnectionManager {
             System.exit(1);
         } catch (Exception e) {
             System.err.println(
-                    "Unable to download torrent file, host unreachable...");
+                    "Unable to download torrent file, host unreachable... host=" + host + " port = " +port + "filename = "+filename);
+            		           
             e.printStackTrace();
         }
         return false;

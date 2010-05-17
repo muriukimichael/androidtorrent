@@ -17,34 +17,10 @@ android:layout_below="@+id/tab1">
 
 
 
-<TextView android:id="@+id/tab1"
-android:layout_width="80px"
-android:layout_height="40px"
-android:layout_alignParentLeft="true"
-android:layout_marginTop="1px"
-android:layout_marginLeft="2px"
- />
-<TextView android:id="@+id/text_tab1"
-android:layout_width="24px"
-android:layout_height="24px"
-android:layout_alignParentLeft="true"
-android:layout_marginTop="10px"
-android:layout_marginLeft="2px"
-android:textStyle="bold"
-android:textSize="17px"
-android:background="@drawable/zoom"
- />
 
-<TextView android:id="@+id/text_tab1text"
-android:layout_width="60px"
-android:layout_height="24px"
-android:layout_alignParentLeft="true"
-android:layout_marginTop="10px"
-android:layout_marginLeft="26px"
-android:textStyle="bold"
-android:textSize="17px"
-android:text="Search"
- />
+
+
+
 
 
 
@@ -64,16 +40,7 @@ android:layout_marginLeft="99px"
 
 
 
-<TextView android:id="@+id/text_tab2"
-android:layout_alignParentLeft="true"
-android:layout_marginTop="10px"
-android:layout_marginLeft="99px"
-android:textStyle="bold"
-android:textSize="17px"
-android:layout_width="24px"
-android:layout_height="24px"
-android:background="@drawable/folder_open"
-/>
+
 
 <TextView android:id="@+id/text_tab2text"
 android:layout_width="60px"
@@ -100,15 +67,7 @@ android:layout_marginLeft="195px"
 
 
 
-<TextView android:id="@+id/text_tab3"
-android:layout_width="24px"
-android:layout_height="24px"
-android:layout_marginTop="10px"
-android:layout_marginLeft="195px"
-android:textStyle="bold"
-android:textSize="17px"
-android:background="@drawable/down"
- />
+
 
 <TextView android:id="@+id/text_tab3text"
 android:layout_width="100px"

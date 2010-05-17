@@ -9,7 +9,7 @@ android:fitsSystemWindows="true">
 
 
 
-<TextView android:id="@+id/TextView01" android:layout_height="wrap_content" android:layout_y="16px" android:layout_width="fill_parent" android:text="Your file is downloading!" android:layout_x="10px"></TextView>
+<TextView android:id="@+id/TextView01" android:layout_height="wrap_content" android:layout_y="16px" android:layout_width="fill_parent" android:text="Your file is downloading!" android:layout_x="10px" ></TextView>
 
 
 <TextView android:id="@+id/TextView02" android:layout_height="wrap_content" android:layout_y="46px" android:layout_width="fill_parent" android:text="Filename" android:layout_x="10px"></TextView>

@@ -52,7 +52,7 @@ public class MessageReceiver extends Thread {
     private DataInputStream dis = null;
     private boolean hsOK = false;
     private final EventListenerList listeners = new EventListenerList();
-
+    public Message_PP mess;
     /**
      * Create a new Message receiver for a given peer
      * @param id The id of the peer that has been assigned this receiver

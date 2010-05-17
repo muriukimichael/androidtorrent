@@ -141,7 +141,7 @@ public class Piece {
     		    data = Utils.concat(data, this.pieceBlock.get(it.next()));
 	           
     	 }
-	       Log.v("AndroidTor","datasize= "+data.length);
+	      // Log.v("AndroidTor","datasize= "+data.length);
 	        return data;
     	
     }

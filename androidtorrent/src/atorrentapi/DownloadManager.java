@@ -68,7 +68,7 @@ public class DownloadManager extends Activity  implements DTListener, PeerUpdate
 
     private TorrentFile torrent = null;
 
-    private int maxConnectionNumber = 100;
+    private int maxConnectionNumber = 200;
     private int nbOfFiles = 0;
     private long length = 0;
     private long left = 0;
@@ -78,7 +78,7 @@ public class DownloadManager extends Activity  implements DTListener, PeerUpdate
     public int nbPieces;
     private int currentopenpieces=0;
     private RandomAccessFile[] output_files;
-    public int maxopenpieces=10;
+    public int maxopenpieces=20;
     private PeerUpdater pu = null;
     private ConnectionListener cl = null;
 
@@ -136,6 +136,8 @@ public class DownloadManager extends Activity  implements DTListener, PeerUpdate
         this.length = this.torrent.total_length;
         this.left = this.length;
 
+         
+        
         this.checkTempFiles();
 
         
@@ -352,7 +354,7 @@ public class DownloadManager extends Activity  implements DTListener, PeerUpdate
      */
     public synchronized void savePiece(int piece) {
         //int remaining = this.pieceList[piece].getLength();
-    	Log.v("AndroidTor","savePiece "+piece);
+    	//Log.v("AndroidTor","savePiece "+piece);
         byte[] data = this.pieceList[piece].data();
         int remainingData = data.length;
         for (Iterator it = this.pieceList[piece].getFileAndOffset().keySet().
@@ -662,7 +664,7 @@ public class DownloadManager extends Activity  implements DTListener, PeerUpdate
                 	float thisrate = p.getDLRate(true) / (1024 * 10);
                     //System.out.println(p + " rate: " + thisrate +  "ko/s");
                 	totalrate+=(totalrate+thisrate);
-                	Log.v("AndroidTor","Average Rate=" +totalrate);
+                	//Log.v("AndroidTor","Average Rate=" +totalrate);
                 }
                 
                 
@@ -712,7 +714,7 @@ public class DownloadManager extends Activity  implements DTListener, PeerUpdate
             
             
         }
-        Log.v("AndroidTor","unchoke peers="+connectedpeers);
+        //Log.v("AndroidTor","unchoke peers="+connectedpeers);
         this.lastUnchoking = System.currentTimeMillis();
         if (this.optimisticUnchoke-- == 0) {
             this.optimisticUnchoke();
@@ -761,7 +763,7 @@ public class DownloadManager extends Activity  implements DTListener, PeerUpdate
 	        if (piece2request != -1){
 	            this.task.get(peerID).requestPiece(this.pieceList[piece2request]);
 	            currentopenpieces=this.task.get(peerID).getopenpieces();
-	            Log.v("AndroidTor","open pieces = "+currentopenpieces);
+	           // Log.v("AndroidTor","open pieces = "+currentopenpieces);
 	            
 	            
 	        }
